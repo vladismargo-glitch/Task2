@@ -1,1 +1,6 @@
-console.log('Thank you for using WebStorm 💙')
+new Vue({
+    el: '#app',
+    data: {
+        message: 'Vue???'
+    }
+});
