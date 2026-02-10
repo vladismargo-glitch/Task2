@@ -69,3 +69,16 @@ body {
     opacity: 0.5;
     pointer-events: none;
 }
+
+.completed {
+    text-decoration: line-through;
+    color: #888;
+}
+
+.time {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: #666;
+    font-style: italic;
+}

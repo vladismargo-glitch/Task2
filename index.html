@@ -10,58 +10,58 @@
 
 <div id="app">
     <div class="container">
-
         <div class="form-box">
             <h3>Новая заметка</h3>
             <input type="text" v-model="title" placeholder="Заголовок">
-
             <div class="inputs-list">
-                <input v-for="(item, index) in items"
-                       :key="index"
-                       type="text"
-                       v-model="items[index]"
-                       :placeholder="'Пункт ' + (index + 1)">
+                <input v-for="(item, index) in items" :key="index" type="text" v-model="items[index]" :placeholder="'Пункт ' + (index + 1)">
             </div>
-
-            <button @click="addCard" :disabled="!canAdd || column1.length >= 3">
-                Добавить карточку ({{column1.length}}/3)
-            </button>
+            <button @click="addCard" :disabled="!canAdd || column1.length >= 3">Добавить карточку ({{column1.length}}/3)</button>
         </div>
 
+
         <div class="board">
-
             <div class="column">
-                <h2>Столбец 1 ({{column1.length}}/3)</h2>
-                <div v-for="card in column1" :key="card.id" class="card">
+                <h2>План ({{column1.length}}/3)</h2>
+                <div v-for="(card, index) in column1" :key="card.id" class="card">
                     <h4>{{ card.title }}</h4>
                     <ul>
-                        <li v-for="todo in card.todos">{{ todo.text }}</li>
+                        <li v-for="todo in card.todos">
+                            <input type="checkbox" v-model="todo.done" @change="checkMove(1, index)">
+                            <span :class="{ completed: todo.done }">{{ todo.text }}</span>
+                        </li>
                     </ul>
                 </div>
             </div>
 
             <div class="column">
-                <h2>Столбец 2 ({{column2.length}}/5)</h2>
-                <div v-for="card in column2" :key="card.id" class="card">
+                <h2>В работе ({{column2.length}}/5)</h2>
+                <div v-for="(card, index) in column2" :key="card.id" class="card">
                     <h4>{{ card.title }}</h4>
                     <ul>
-                        <li v-for="todo in card.todos">{{ todo.text }}</li>
+                        <li v-for="todo in card.todos">
+                            <input type="checkbox" v-model="todo.done" @change="checkMove(2, index)">
+                            <span :class="{ completed: todo.done }">{{ todo.text }}</span>
+                        </li>
                     </ul>
                 </div>
             </div>
 
             <div class="column">
-                <h2>Столбец 3</h2>
+                <h2>Готово</h2>
                 <div v-for="card in column3" :key="card.id" class="card">
                     <h4>{{ card.title }}</h4>
                     <ul>
-                        <li v-for="todo in card.todos">{{ todo.text }}</li>
+                        <li v-for="todo in card.todos">
+                            <input type="checkbox" checked disabled>
+                            <span class="completed">{{ todo.text }}</span>
+                        </li>
                     </ul>
+                    <small class="time" v-if="card.completedAt">Завершено: {{ card.completedAt }}</small>
                 </div>
             </div>
-
         </div>
-    </div>>
+    </div>
 </div>
 
 <script src="js/script.js"></script>
