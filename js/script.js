@@ -5,12 +5,21 @@ new Vue({
         items: ['', '', '', '', ''],
         column1: [],
         column2: [],
-        column3: []
+        column3: [],
+        colums: JSON.parse(localStorage.getItem('notes-app-data')) || [[],[], []]
     },
     computed: {
         canAdd() {
             const filled = this.items.filter(i => i.trim() !== '').length;
             return this.title.trim() !== '' && filled >= 3;
+        }
+    },
+    watch: {
+        colums: {
+            handler(newColums) {
+                localStorage.setItem('notes-app-data', JSON.stringify (newColums));
+            },
+            deep: true
         }
     },
     methods: {
